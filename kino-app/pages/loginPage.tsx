@@ -12,10 +12,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 
 function Copyright(props: any) {
   return (
@@ -44,23 +40,6 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button href="registracija" color="inherit">Registracija</Button>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -91,7 +70,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Dobrodošli! 
+              Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -99,7 +78,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 id="email"
-                label="Email Adresa"
+                label="Email Address"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -109,7 +88,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Lozinka"
+                label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -124,7 +103,7 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Prijava
+                Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -134,7 +113,7 @@ export default function SignInSide() {
                 </Grid>
                 <Grid item>
                   <Link href="#" variant="body2">
-                    {"Nemate račun? Registrirajte se"}
+                    {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
