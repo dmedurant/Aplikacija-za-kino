@@ -16,7 +16,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import {ResponsiveAppBar} from './nav';
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -44,6 +44,7 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
+    <ResponsiveAppBar></ResponsiveAppBar>
       <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
