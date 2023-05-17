@@ -4,10 +4,10 @@ const app = express();
 
 // Create a MySQL connection
 const connection = mysql.createConnection({
-  host: 'your_host',
-  user: 'your_user',
-  password: 'your_password',
-  database: 'your_database',
+  host: "193.198.97.21",
+  user: "nalic",
+  password: "11",
+  database:"nalic" 
 });
 
 // Connect to the MySQL database
