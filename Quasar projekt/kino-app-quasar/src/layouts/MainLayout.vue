@@ -50,18 +50,24 @@ import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
 
   {
-    title: 'login',
-    caption: 'log',
-    icon: 'school',
+    title: 'Login',
+    caption: 'Ulogiravanje u sustav',
+    icon: '',
     link: '#/log'
+  },
+  {
+    title: 'Redatelji prikaz',
+    caption: 'Prikaz redatelja',
+    icon: '',
+    link: '#/red'
+  },
+  {
+    title: 'Redatelji unos',
+    caption: 'Unos redatelja',
+    icon: '',
+    link: '#/redUnos'
   }
 ]
 

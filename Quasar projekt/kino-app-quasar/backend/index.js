@@ -41,6 +41,17 @@ dbConn.connect(function(err) {
   });
   
 
+  app.get('/redatelji', (req,res)=>{
+    dbConn.query("Select * from Redatelj", (err,result)=>{
+        if(err){
+            res.send('error');
+        }else{
+            res.send(result);
+            console.log("Redatelji!");
+        }
+    });
+});
+
 /*
 
 app.post('/unosKorisnika', function (request, response) {
