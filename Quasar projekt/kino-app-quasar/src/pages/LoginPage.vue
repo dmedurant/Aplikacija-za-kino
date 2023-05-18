@@ -28,12 +28,6 @@
 
 <script setup>
 import { reactive } from "vue"
-// eslint-disable-next-line no-unused-vars
-import { QDialog } from 'quasar'
-// eslint-disable-next-line no-unused-vars
-import axios from 'axios' // Import axios
-
-
 const register = ref(false)
 const tab = ref('')
 if (!register.value) {
@@ -47,7 +41,7 @@ const credentials = reactive({
   password: ''
 })
 const onSubmit = () => {
-  console.log("forma potvrđena")
+  console.log("forma potvrđana")
 
   if (!credentials.email || !credentials.password) {
     alert('Unesite email i lozinku')
@@ -55,20 +49,28 @@ const onSubmit = () => {
   else {
     if (register.value) {
       console.log('Registriraj korisnika sa:', credentials)
-      submitForm ();
-
+      registracija ();
     }
     else {
       console.log('Prijavi korisnika sa:', credentials)
-      
+      submitForm ();
     }
   }
 }
 </script>
 
 <script>
-
+// eslint-disable-next-line no-unused-vars
+import { QDialog } from 'quasar'
+// eslint-disable-next-line no-unused-vars
+import { ref } from 'vue'
+import axios from 'axios' // Import axios
 export default {
+  data () {
+    return {
+      inputNaziv: '',
+    }
+  },
   methods: {
 
     resetForm () {
@@ -81,7 +83,7 @@ export default {
       window.location.reload()
     },
 
-    async submitForm () {
+    async registracija () {
       const sampleData = {
         username: this.credentials.email,
         pass: this.credentials.password
@@ -92,8 +94,8 @@ export default {
           sampleData
         )
         console.log(response.data)
-        /*this.showDialog = true
-        this.resetForm()*/
+        this.showDialog = true
+        this.resetForm()
       } catch (error) {
         console.error(error)
       }

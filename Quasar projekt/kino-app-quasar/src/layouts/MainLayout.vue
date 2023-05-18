@@ -68,6 +68,19 @@ const linksList = [
     caption: 'Unos redatelja',
     icon: '',
     link: '#/redUnos'
+  },
+
+  {
+    title: 'Film unos',
+    caption: 'Unos filmova',
+    icon: '',
+    link: '#/filmUnos'
+  },
+  {
+    title: 'Film prikaz',
+    caption: 'Prikaz filmova',
+    icon: '',
+    link: '#/filmPrikaz'
   }
 ]
 

@@ -39,19 +39,40 @@ dbConn.connect(function(err) {
     return response.send({ error: false, data: results, message:'Unesen redatelj.' });
     });
   });
-  
 
+  
+  // unos filma
+  app.post('/unosFilm', function (request, response) {
+    const data = request.body;
+    film = [[data.naslov, data.sadrzaj, data.datumObjave, data.trajanje]]
+    
+    dbConn.query('INSERT INTO Film  (Naslov, Sadrzaj, DatumObjave, VrijemeTrajanja) VALUES ? ',
+    [film], function (error, results, fields) {
+    if (error) throw error;
+    return response.send({ error: false, data: results, message:'Unesen film.' });
+    });
+  });
+  
+// prikaz:
   app.get('/redatelji', (req,res)=>{
     dbConn.query("Select * from Redatelj", (err,result)=>{
         if(err){
             res.send('error');
         }else{
             res.send(result);
-            console.log("Redatelji!");
         }
     });
 });
 
+app.get('/filmovi', (req,res)=>{
+    dbConn.query("Select * from Film", (err,result)=>{
+        if(err){
+            res.send('error');
+        }else{
+            res.send(result);
+        }
+    });
+});
 /*
 
 app.post('/unosKorisnika', function (request, response) {

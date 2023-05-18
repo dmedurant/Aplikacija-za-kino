@@ -7,7 +7,9 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/log', component: () => import('pages/LoginPage.vue') },
       { path: '/red', component: () => import('pages/PrikazRedatelja.vue') },
-      { path: '/redUnos', component: () => import('pages/UnosRedatelja.vue') }
+      { path: '/redUnos', component: () => import('pages/UnosRedatelja.vue') },
+      { path: '/filmUnos', component: () => import('pages/UnosFilm.vue') },
+      { path: '/filmPrikaz', component: () => import('pages/FilmoviPrikaz.vue') }
     ]
   },
 
