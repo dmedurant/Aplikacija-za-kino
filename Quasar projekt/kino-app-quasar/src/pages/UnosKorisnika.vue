@@ -94,7 +94,7 @@
         const sampleData = {
           ime: this.inputIme,
           prezime: this.inputPrezime,
-          adresa: this.inputAdresa
+          adresa: this.inputAdresa,
           broj: this.inputBroj
         }
         try {

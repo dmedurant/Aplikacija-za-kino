@@ -81,6 +81,18 @@ const linksList = [
     caption: 'Prikaz filmova',
     icon: '',
     link: '#/filmPrikaz'
+  },
+  {
+    title: 'Korisnici prikaz',
+    caption: 'Prikaz ',
+    icon: '',
+    link: '#/korPrikaz'
+  },
+  {
+    title: 'Korisnici unos',
+    caption: 'unos ',
+    icon: '',
+    link: '#/korUnos'
   }
 ]
 

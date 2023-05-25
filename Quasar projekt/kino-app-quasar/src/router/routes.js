@@ -9,7 +9,9 @@ const routes = [
       { path: '/red', component: () => import('pages/PrikazRedatelja.vue') },
       { path: '/redUnos', component: () => import('pages/UnosRedatelja.vue') },
       { path: '/filmUnos', component: () => import('pages/UnosFilm.vue') },
-      { path: '/filmPrikaz', component: () => import('pages/FilmoviPrikaz.vue') }
+      { path: '/filmPrikaz', component: () => import('pages/FilmoviPrikaz.vue') },
+      { path: '/korPrikaz', component: () => import('pages/PrikazKorisnika.vue') },
+      { path: '/korUnos', component: () => import('pages/UnosKorisnika.vue') }
     ]
   },
 
