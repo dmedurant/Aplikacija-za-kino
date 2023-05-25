@@ -70,6 +70,7 @@ app.get('/filmovi', (req,res)=>{
             res.send('error');
         }else{
             res.send(result);
+            console.log(result);
         }
     });
 });

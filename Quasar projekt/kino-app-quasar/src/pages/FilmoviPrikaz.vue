@@ -62,7 +62,7 @@
     { name: 'Naslov', align: 'left', label: 'Naslov', field: 'Naslov', sortable: true },
     { name: 'Sadrzaj', align: 'left', label: 'Sadržaj', field: 'Sadrzaj', sortable: true },
     { name: 'DatumObjave', align: 'left', label: 'Datum Objave', field: 'DatumObjave', sortable: false },
-    { name: 'Trajanje', align: 'left', label: 'Trajanje', field: 'VrijemeTrajanja', sortable: true }
+    { name: 'Trajanje', align: 'left', label: 'Trajanje (min)', field: 'VrijemeTrajanja', sortable: true }
    
   ]
   const getPosts = async () => {
