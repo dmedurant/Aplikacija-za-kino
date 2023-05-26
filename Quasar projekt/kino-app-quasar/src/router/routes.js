@@ -11,14 +11,28 @@ const routes = [
       { path: '/filmUnos', component: () => import('pages/UnosFilm.vue') },
       { path: '/filmPrikaz', component: () => import('pages/FilmoviPrikaz.vue') },
       { path: '/korPrikaz', component: () => import('pages/PrikazKorisnika.vue') },
-      { path: '/korUnos', component: () => import('pages/UnosKorisnika.vue') }
+      { path: '/korUnos', component: () => import('pages/UnosKorisnika.vue') },
     ]
   },
 
   {
+    path: "/",
+    component: () => import("layouts/BlankLayout.vue")
+  },
+    {
+    path: "/detalji",
+    component: () => import("layouts/BlankLayout.vue"),
+    children: [
+      {name: "detalji", path: ":id", component: () => import("pages/FilmPage.vue") },
+
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
   }
+  
+ 
 ]
 
-export default routes
+export default routes;

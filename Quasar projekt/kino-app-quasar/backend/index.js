@@ -28,6 +28,17 @@ dbConn.connect(function(err) {
   });
 
 
+  // Ovo riješava problem: 
+// Origin <origin> is not allowed by Access-Control-Allow-Origin
+// from origin 'http://localhost:3000' has been blocked by CORS policy
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+// kraj fix-a
+
+
   // unos redatelja
   app.post('/unosRedatelja', function (request, response) {
     const data = request.body;
@@ -73,6 +84,43 @@ app.get('/filmovi', (req,res)=>{
         }
     });
 });
+
+app.delete('/obrisi_film/:id', function (request, response){
+
+    let ID_Film = request.params.id;
+  
+    console.log(`Received request to delete atrakcija with id: ${ID_Film}`); // Log the received id
+  
+    if (!ID_Film) {
+      return response.status(400).send({ error: true, message: 'nedostaje id ' });
+    }
+  
+   const deleteQuery = "DELETE  FROM Film WHERE ID_Film = ?";
+     //const deleteQuery = "DELETE  FROM atrakcije WHERE id_atrakcije = '${id}'";
+    dbConn.query(deleteQuery, [ID_Film], function (error, results) {
+      if (error) {
+        console.log(`Error when executing the delete query: ${error}`); // Log any error from the query
+        throw error;
+      }
+  
+      console.log('Deletion result: ${JSON.stringify(results)}'); // Log the result of the deletion
+  
+      return response.send({ error: false, data: results, message: 'atrakcija je obrisana obrisi_atrakcije.' });
+    });
+  });
+
+
+// unos korisnika
+app.post('/unosKorisnika', function (request, response) {
+    const data = request.body;
+    korisnik = [[data.ime, data.prezime, data.adresa, data.broj]]
+    
+    dbConn.query('INSERT INTO Korisnik  (Ime, Prezime, Adresa, Broj) VALUES ? ',
+    [korisnik], function (error, results, fields) {
+    if (error) throw error;
+    return response.send({ error: false, data: results, message:'Unesen korisnik.' });
+    });
+  });
 /*
 
 app.post('/unosKorisnika', function (request, response) {

@@ -59,7 +59,6 @@
   <script>
   // eslint-disable-next-line no-unused-vars
   import { QDialog } from 'quasar'
-  import imageCompression from "browser-image-compression";
   // eslint-disable-next-line no-unused-vars
   import { ref } from 'vue'
   import axios from 'axios' // Import axios

@@ -1,4 +1,5 @@
 <template>
+  <div class="bg-image">
   <div class="q-pa-md">
     <h4>Korisnici</h4>
   </div>
@@ -58,6 +59,7 @@
   <div class="q-pa-md q-gutter-sm">
     <q-btn color="primary" to="/" label="Natrag na početnu" />
   </div>
+</div>
 </template>
 
 <script setup>
@@ -93,3 +95,8 @@ onMounted(() => {
 })
 
 </script>
+<style>
+.bg-image {
+  background-image: url(https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces)
+}
+</style>

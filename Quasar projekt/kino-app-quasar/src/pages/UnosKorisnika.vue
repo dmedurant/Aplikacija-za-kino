@@ -116,6 +116,6 @@
   
   <style>
     .bg-image {
-      background-image: url(https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/45680/article_featured%403x.jpg)
+      background-image: url(https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces)
     }
   </style>

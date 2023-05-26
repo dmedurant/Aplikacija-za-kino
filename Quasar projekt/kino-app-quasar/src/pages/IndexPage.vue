@@ -1,115 +1,99 @@
 <template>
-  <div class="bg-image">
-  <q-page padding class="flex flex-center">
-    <q-card style="width: 350px;">
-      <q-card-section>
-        <div class="q-gutter-md full-with" style="max-width: 500px">
-        <div class="full-with">
-    <div class="q-gutter-md" style="max-width: 350px">
-      <p  class="text-h5 text-weight-light text-center" style="color:#2196F3">Unos novog redatelja</p>
-      <q-input ref="imeRef" v-model="inputIme" label="Ime" placeholder="Ime">
-      </q-input>
+  <div style="background-color: #229df9">
+<div  class="q-pa-md row items-start q-gutter-md">
 
-      <q-input ref="prezimeRef" v-model="inputPrezime" label="Prezime" placeholder="Prezime ">
-      </q-input>
+  <q-card v-for="post in posts" :key="post.id" class="my-card">
+    <q-img :src=post.cover />
 
-      <q-input ref="bioRef" v-model="inputBio" label="Bio" placeholder="Bio ">
-      </q-input>
+    <q-card-section>
+      <q-btn fab color="primary" icon="" class="absolute" style="top: 0; right: 12px; transform: translateY(-50%)"
+      :to="'detalji/' + post.ID_Film" />
 
-        <div
-          class="q-pa-sm"
-          style="max-width: 700px; overflow-wrap: break-word"
-        ></div>
+        <q-btn fab color="red" icon="delete" class="absolute"  style="top: 0px; left: 12px; transform: translateY(-50%)"
+         @click="deleteById(post.ID_Film)" />
+
+         <div class="myDiv" style="padding: 10px;"></div>
+
+      <div class="row no-wrap items-center">
+        <div class="col text-h6 ellipsis">{{ post.Naslov }}</div>
       </div>
-    </div>
-      <div class="row justify-center q-pa-md">
-        <div class="row justify-center q-pa-md">
-          <q-btn
-          label="Unesi"
-          @click="submitForm"
-          color="blue"
-          class="q-ml-sm"
-        />
-        </div>
-      </div>
-    </div>
 
-<q-dialog v-model="showDialog">
-      <q-card>
-        <q-card-section> Redatelj je uspješno dodan! </q-card-section>
-        <q-card-actions align="right">
-          <q-btn
-            flat
-            label="Ok"
-            color="primary"
-            v-close-popup
-            @click="closeAndReload"
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-</q-card-section>
+    </q-card-section>
+
+    <q-card-section class="q-pt-none">
+      <div class="text-subtitle1">{{ post.DatumObjave }}</div>
+      <div class="text-caption text-grey">
+        {{post.Sadrzaj}}
+      </div>
+
+    </q-card-section>
+
+    <q-separator />
+
   </q-card>
-</q-page>
+
+
+
+</div>
 </div>
 </template>
 
-<script>
-// eslint-disable-next-line no-unused-vars
-import { QDialog } from 'quasar'
-import imageCompression from "browser-image-compression";
-// eslint-disable-next-line no-unused-vars
-import { ref } from 'vue'
-import axios from 'axios' // Import axios
-export default {
-  data () {
-    return {
-      inputIme: '',
-      inputPrezime: '',
-      inputBio: '',
+<script setup>
+import { ref, onMounted } from "vue"
+import {api} from 'boot/axios'
+import { useRoute, useRouter } from 'vue-router';
+const posts = ref([])
+const route = useRoute()
+const router = useRouter()
 
-    }
-  },
-  methods: {
-    closeAndReload() {
-      this.showDialog = false;
-      window.location.reload();
-    },
 
-    resetForm () {
-      this.inputIme = ''
-      this.inputPrezime = ''
-      this.inputBio = ''
-      this.$refs.imeRef.resetValidation()
-      this.$refs.prezimeRef.resetValidation()
-      this.$refs.bioRef.resetValidation()
-    },
-    async submitForm () {
-      const sampleData = {
-        ime: this.inputIme,
-        prezime: this.inputPrezime,
-        biografija: this.inputBio
-      }
-      try {
-        const response = await axios.post(
-          'http://localhost:3000/unosRedatelja',
-          sampleData
-        )
-        console.log(response.data)
-        this.showDialog = true
-        this.resetForm()
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  },
+
+const getPosts = async () => {
+try{
+  const response = await api.get('filmovi')
+  console.log(response.data)
+  posts.value = response.data
+
+}catch (error){
+  console.log(error)
+}
+
+}
+
+
+const deleteById = async (id) => {
+try {
+//const response = await api.delete('atrakcije/${id}');
+const response = await api.delete(`http://localhost:3000/obrisi_film/${id}`);
+console.log(response.data);
+// Perform any additional actions after successful deletion
+} catch (error) {
+console.log(error);
+}
+getPosts();
+}
+
+
+onMounted(() => {
+getPosts()
+})
+
+const goToAtrakcijeDetalji  = (id) => {
+  router.push({ path: '/detalji', 
+ name: 'detalji',
+  params: { id: id } })
 }
 
 </script>
 
 <style>
-  .bg-image {
-    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.williamhortonphotography.com%2Fwp-content%2Fuploads%2F2017%2F09%2FCroatia-Krk-2015-10.jpg&f=1&nofb=1&ipt=374c233d6e256918b9237640e1c0d6b6d0d4a377be4c7dfc38405cba259d2566&ipo=images) ;
+.bg-blue {
+background-color: #2d1eff85;
+color: white;
+}
 
-  }
+.my-card {
+width: 100%;
+max-width: 300px;
+}
 </style>
