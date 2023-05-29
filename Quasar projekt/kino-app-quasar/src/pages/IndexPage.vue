@@ -7,7 +7,7 @@
 
     <q-card-section>
       <q-btn fab color="primary" icon="" class="absolute" style="top: 0; right: 12px; transform: translateY(-50%)"
-      :to="'detalji/' + post.ID_Film" />
+      :to="'/detalji/' + post.ID_Film" />
 
         <q-btn fab color="red" icon="delete" class="absolute"  style="top: 0px; left: 12px; transform: translateY(-50%)"
          @click="deleteById(post.ID_Film)" />

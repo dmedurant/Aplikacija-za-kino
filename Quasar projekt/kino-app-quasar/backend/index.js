@@ -76,14 +76,28 @@ app.use(function (req, res, next) {
 });
 
 app.get('/filmovi', (req,res)=>{
-    dbConn.query("Select * from Film", (err,result)=>{
-        if(err){
-            res.send('error');
-        }else{
-            res.send(result);
-        }
-    });
+  dbConn.query("SELECT * from Film", (err,result)=>{
+      if(err){
+          res.send('error');
+      }else{
+          res.send(result);
+      }
+  });
 });
+
+app.get('/film/:id', (req, res) => {
+  const { id } = req.params;
+  dbConn.query(
+    "SELECT * from Film WHERE ID_Film = ?", [id],
+    (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});
+
+
+
 
 app.delete('/obrisi_film/:id', function (request, response){
 
@@ -121,20 +135,35 @@ app.post('/unosKorisnika', function (request, response) {
     return response.send({ error: false, data: results, message:'Unesen korisnik.' });
     });
   });
-/*
 
-app.post('/unosKorisnika', function (request, response) {
+
+app.post('/login', function (request, response) {
   const data = request.body;
-  korisnik = [[data.username, data.pass]]
-  
-  dbConn.query('INSERT INTO Login  (username, pass) VALUES ? ',
-  [korisnik], function (error, results, fields) {
+  user = [[data.username]]
+  pass = [[data.password]]
+  dbConn.query('Select * from Login  where username = ? & password  = ? ',
+  [user], req.params.password, function (error, results, fields) {
   if (error) throw error;
-  return response.send({ error: false, data: results, message:'Uneseno.' });
+  return response.send({ error: false, data: results, message:'Korisnik postoji!.' });
   });
 });
 
 
+app.get("get-film/:id", (req, res) => {
+  const { id } = req.params;
+
+  dbConn.query(
+    "SELECT Naslov, cover  WHERE ID_Film = ?",
+    [id],
+    (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});
+
+
+/*
 //uzimanje podataka o korisnicima
 app.get("/korisnici", function (request, response) {
     dbConn.query("SELECT * FROM korisnici", function (error, results, fields) {
