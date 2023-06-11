@@ -4,41 +4,56 @@
 
       <div q-card>
         <p style="font-size: 60px; font-weight:700;">{{ post.Naslov }}</p>
-        <q-img :src=post.cover width="300px" height="450px" position="absolute" top="50%" left="50%"
-          transform="translate(-50%, -50%)">
-
-
-          
-        </q-img>
+        <q-img :src="post.cover" width="300px" height="450px" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)"></q-img>
       </div>
-      <div class="q-pa-md" >
-        <div class="q-pa-md items-start q-gutter-xs" >
+      <div class="q-pa-md">
+        <div class="q-pa-md items-start q-gutter-xs">
           <p style="font-size: 20px; font-weight:700;">Opis:</p>
           <div class="post-text">{{ post.Sadrzaj }}</div>
           <q-separator color="white" />
           <br>
           <p style="font-size: 20px; font-weight:700;">Datum objave:</p>
-          <h7>{{ post.DatumObjave }}</h7>
+          <h7>{{ formatDate(post.DatumObjave) }}</h7>
           <q-separator color="white" />
           <div class="" style="max-width: 400px"></div>
         </div>
 
-        <div class="q-pa-md" >
-          <q-btn-dropdown class="float-right"
-            color="purple"
-            label="Rezervacija">
+        <div class="q-pa-md">
+          <q-btn-dropdown class="float-right" color="purple" label="Rezervacija">
             <div class="row no-wrap q-pa-md">
               <div class="column">
                 <div class="text-h6 q-mb-md">Rezervacija</div>
-                <q-input ref="prikazref" v-model="id_prikaz" label="id prikaza" placeholder="Sadržaj "></q-input>
-                <q-input ref="SadrzajRef" v-model="inputSadrzaj" label="Sadrzaj" placeholder="Sadržaj "></q-input>
-                <br>
-                <br>
-                
+              
+                <q-table
+                  :rows="availableDates"
+                  :columns="columns"
+                  row-key="date"
+                  :rows-per-page-options="[5, 10, 15]"
+                  :pagination="pagination"
+                  dense
+                  flat
+                  class="shadow-0"
+                >
+                  <template v-slot:top-left>
+                    <p>Dostupno</p>
+                  </template>
+                  <template v-slot:body="props">
+                    <q-tr :props="props">
+                      <q-td key="date" :props="props">{{ formatDate(props.row.DatumPrikaza) }}</q-td>
+                      <q-td key="vrijeme" :props="props">{{ formatTime(props.row.vrijeme_prikaza) }}</q-td>
+                      <q-td key="action" :props="props">
+                        <q-checkbox
+                          v-model="props.row.selected"
+                          @input="selectRow(props.row)"
+                          true-value="selected"
+                          false-value="not-selected"
+                        />
+                      </q-td>
+                    </q-tr>
+                  </template>
+                </q-table>
               </div>
-      
               <q-separator vertical inset class="q-mx-lg" />
-      
               <div class="column items-center">
                 <q-btn name="rezervacija" label="Rezerviraj" @click="rezervacijaFilma" color="blue" class="q-ml-sm"/>
               </div>
@@ -48,59 +63,80 @@
         <q-separator />
       </div>
     </div>
-
-
-
     <q-card-section>
-      <q-btn class="button" @click="$router.push('/')" label="Natrag na početnu" />
+      <q-btn class="button" @click="$router.push('/') " label="Natrag na početnu" />
     </q-card-section>
-
-    
-
     <div class="q-pa-md row items-start q-gutter-xs">
       <p style="font-size: 25px; color: white">Komentari:</p>
-
     </div>
     <div class="q-pa-md row items-start q-gutter-xs">
-    <p style="font-size: 20px; color: white">Ovdje možete pogledati komentare o atrakciji</p>
+      <p style="font-size: 20px; color: white">Ovdje možete pogledati komentare o atrakciji</p>
     </div>
-    <!-- {{ comments }} -->
-
   </div>
 </template>
 
-
-
 <script setup>
-
-import { ref, onMounted } from "vue"
-import { api } from 'boot/axios'
+import moment from 'moment';
+import { ref, onMounted } from "vue";
+import { api } from 'boot/axios';
 import { useRoute, useRouter } from 'vue-router';
 
-const posts = ref([])
-const comments = ref([])
-const route = useRoute()
-const router = useRouter()
+const posts = ref([]);
+const comments = ref([]);
+const route = useRoute();
+const router = useRouter();
 
-const trenutniID = route.params.id
+const trenutniID = route.params.id;
 
 const getPosts = async (id) => {
   try {
-    const response = await api.get(`http://localhost:3000/film/`+ trenutniID);
+    const response = await api.get(`http://localhost:3000/film/` + trenutniID);
     posts.value = response.data;
     console.log("ID je: ", trenutniID);
     console.log("Podatak iz baze po ID: ", posts.value);
 
-  } catch (error) {
-    console.log(error)
-  }
-}
+    // Load available dates from a different table
+    const availableDatesResponse = await api.get('http://localhost:3000/available-dates/' + trenutniID);
+    availableDates.value = availableDatesResponse.data;
 
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const availableDates = ref([]);
+const columns = [
+  { name: 'date', required: true, label: 'Date', align: 'left', field: 'date', sortable: true },
+  { name: 'vrijeme', required: true, label: 'Vrijeme', align: 'left', field: 'vrijeme', sortable: true },
+  { name: 'action', required: true, label: 'Action', align: 'center', field: 'action' }
+];
+const pagination = { rowsPerPage: 5 };
+const selectAll = ref(false);
+const filter = ref('');
+
+const selectRow = (row) => {
+  // Handle row selection logic
+};
+
+const selectAllRows = (value) => {
+  // Handle select all rows logic
+};
+
+const rezervacijaFilma = () => {
+  // Handle rezervacijaFilma logic
+};
+
+const formatDate = (date) => {
+  return moment(date).format('YYYY-MM-DD');
+};
+
+const formatTime = (time) => {
+  return moment(time, 'HH:mm:ss', true).format('HH:mm');
+};
 
 onMounted(() => {
-  getPosts(trenutniID)
-})
-
+  getPosts(trenutniID);
+});
 
 </script>
 

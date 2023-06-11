@@ -96,6 +96,21 @@ app.get('/film/:id', (req, res) => {
   );
 });
 
+
+app.get('/available-dates/:id', (req, res) => {
+  const { id } = req.params;
+  dbConn.query(
+    "SELECT DatumPrikaza, vrijeme_prikaza from prikazivanje WHERE id_filma = ?", [id],
+    (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});
+
+
+
+
 app.post('/unosRezervacije', function (request, response) {
   const data = request.body;
   rezervacija = [[data.ID_Film, data.korisnik]]

@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Kino App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div></div>
       </q-toolbar>
     </q-header>
 
@@ -28,7 +28,6 @@
         <q-item-label
           header
         >
-          Essential Links
         </q-item-label>
 
         <EssentialLink
