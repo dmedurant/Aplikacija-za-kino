@@ -139,12 +139,12 @@ app.get('/prikazivanje/:id_prikaza', (req, res) => {
 
 app.post('/unosRezervacije', function (request, response) {
   const data = request.body;
-  rezervacija = [[data.ID_Film, data.korisnik]]
+  rezervacija = [[data.osoba, data.id_prikaza]]
   
-  dbConn.query('INSERT INTO Film  (Naslov, Sadrzaj, DatumObjave, VrijemeTrajanja) VALUES ? ',
-  [film], function (error, results, fields) {
+  dbConn.query('INSERT INTO rezervacija  (korisnik, id_prikaza ) VALUES ? ',
+  [rezervacija], function (error, results, fields) {
   if (error) throw error;
-  return response.send({ error: false, data: results, message:'Unesen film.' });
+  return response.send({ error: false, data: results, message:'Unesena rezervacija.' });
   });
 });
 
