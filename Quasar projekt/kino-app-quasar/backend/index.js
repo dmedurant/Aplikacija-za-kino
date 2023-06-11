@@ -55,9 +55,9 @@ app.use(function (req, res, next) {
   // unos filma
   app.post('/unosFilm', function (request, response) {
     const data = request.body;
-    film = [[data.naslov, data.sadrzaj, data.datumObjave, data.trajanje]]
+    film = [[data.naslov, data.sadrzaj, data.datumObjave, data.trajanje, data.cover]]
     
-    dbConn.query('INSERT INTO Film  (Naslov, Sadrzaj, DatumObjave, VrijemeTrajanja) VALUES ? ',
+    dbConn.query('INSERT INTO Film  (Naslov, Sadrzaj, DatumObjave, VrijemeTrajanja, cover) VALUES ? ',
     [film], function (error, results, fields) {
     if (error) throw error;
     return response.send({ error: false, data: results, message:'Unesen film.' });
