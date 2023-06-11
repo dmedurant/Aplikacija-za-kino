@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #229df9">
+  <div>
     <br>
     <q-input
     v-model="searchTerm"
@@ -62,6 +62,7 @@
       </template>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -107,7 +108,6 @@ const goToAtrakcijeDetalji = (id) => {
   router.push({ path: '/detalji', name: 'detalji', params: { id: id } });
 };
 
-// Computed property for filtered posts based on the search term
 const filteredPosts = computed(() => {
   return posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()));
 });

@@ -1,12 +1,12 @@
 <template>
     <div class="bg-image">
     <q-page padding class="flex flex-center">
-      <q-card style="width: 350px;">
+      <q-card style="width: 40%; padding:20px;" class="pozadina">
         <q-card-section>
-          <div class="q-gutter-md full-with" style="max-width: 500px">
+          <div class="q-gutter-md" >
           <div class="full-with">
-      <div class="q-gutter-md" style="max-width: 350px">
-        <p  class="text-h5 text-weight-light text-center" style="color:#2196F3">Unos novog Filma</p>
+      <div class="q-gutter-md" >
+        <p  class="text-h4 text-center" style="color:#5855ad">Unos novog Filma</p>
         <q-input ref="naslovRef" v-model="inputNaslov" label="Naslov" placeholder="Naslov">
         </q-input>
   
@@ -114,6 +114,16 @@
   
   <style>
     .bg-image {
-      background-image: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v1016-c-08_1-ksh6mza3.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=f584d8501c27c5f649bc2cfce50705c0)
+      background-image:url(src/assets/pozadina2.jpg) ;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .pozadina{
+      background-color: 
+      rgba(248, 248, 248, 0.614); width:80%; 
+      border-radius: 15px;
+    }
+    .pozadina q-input{
+      color:white;
     }
   </style>
