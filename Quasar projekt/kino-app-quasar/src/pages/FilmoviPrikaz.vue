@@ -3,6 +3,7 @@
       <h4>Svi filmovi</h4>
     </div>
     <div class="q-pa-md">
+     
       <q-table
         flat bordered
         title="Filmovi:"
@@ -11,6 +12,7 @@
         row-key="name"
         binary-state-sort
       >
+
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="ID_Film" :props="props">{{ props.row.ID_Film }}</q-td>
@@ -56,7 +58,8 @@
   // treba dodati skripte za update i brisanje
   
   const posts = ref([])
-  
+  const searchTerm = ref('');
+
   const columns = [
     { name: 'ID_Film', align: 'left', label: 'ID', field: 'ID_Film', sortable: true },
     { name: 'Naslov', align: 'left', label: 'Naslov', field: 'Naslov', sortable: true },
@@ -76,6 +79,10 @@
     }
   
   }
+
+  const search = () => {
+   posts.value = originalPosts.filter(post => post.Naslov.includes(searchTerm.value));
+};
   
   onMounted(() => {
     getPosts()

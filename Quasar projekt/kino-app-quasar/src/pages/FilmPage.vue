@@ -40,7 +40,7 @@
               <q-separator vertical inset class="q-mx-lg" />
       
               <div class="column items-center">
-                <q-btn label="Rezerviraj" @click="rezervacijaFilma" color="blue" class="q-ml-sm"/>
+                <q-btn name="rezervacija" label="Rezerviraj" @click="rezervacijaFilma" color="blue" class="q-ml-sm"/>
               </div>
             </div>
           </q-btn-dropdown>
