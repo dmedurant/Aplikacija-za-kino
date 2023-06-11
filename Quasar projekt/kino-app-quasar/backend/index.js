@@ -96,7 +96,16 @@ app.get('/film/:id', (req, res) => {
   );
 });
 
-
+app.post('/unosRezervacije', function (request, response) {
+  const data = request.body;
+  rezervacija = [[data.ID_Film, data.korisnik]]
+  
+  dbConn.query('INSERT INTO Film  (Naslov, Sadrzaj, DatumObjave, VrijemeTrajanja) VALUES ? ',
+  [film], function (error, results, fields) {
+  if (error) throw error;
+  return response.send({ error: false, data: results, message:'Unesen film.' });
+  });
+});
 
 
 app.delete('/obrisi_film/:id', function (request, response){

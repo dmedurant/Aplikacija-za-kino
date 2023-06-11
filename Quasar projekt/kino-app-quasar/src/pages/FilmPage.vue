@@ -22,6 +22,30 @@
           <q-separator color="white" />
           <div class="" style="max-width: 400px"></div>
         </div>
+
+        <div class="q-pa-md" >
+          <q-btn-dropdown class="float-right"
+            color="purple"
+            label="Rezervacija">
+            <div class="row no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">Rezervacija</div>
+                <q-input ref="prikazref" v-model="id_prikaz" label="id prikaza" placeholder="Sadržaj "></q-input>
+                <q-input ref="SadrzajRef" v-model="inputSadrzaj" label="Sadrzaj" placeholder="Sadržaj "></q-input>
+                <br>
+                <br>
+                
+              </div>
+      
+              <q-separator vertical inset class="q-mx-lg" />
+      
+              <div class="column items-center">
+                <q-btn label="Rezerviraj" @click="rezervacijaFilma" color="blue" class="q-ml-sm"/>
+              </div>
+            </div>
+          </q-btn-dropdown>
+        </div>
+        <q-separator />
       </div>
     </div>
 
@@ -31,7 +55,7 @@
       <q-btn class="button" @click="$router.push('/')" label="Natrag na početnu" />
     </q-card-section>
 
-    <q-separator />
+    
 
     <div class="q-pa-md row items-start q-gutter-xs">
       <p style="font-size: 25px; color: white">Komentari:</p>
@@ -59,6 +83,7 @@ const route = useRoute()
 const router = useRouter()
 
 const trenutniID = route.params.id
+
 const getPosts = async (id) => {
   try {
     const response = await api.get(`http://localhost:3000/film/`+ trenutniID);
