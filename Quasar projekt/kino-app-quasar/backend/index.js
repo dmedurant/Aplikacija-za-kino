@@ -100,13 +100,39 @@ app.get('/film/:id', (req, res) => {
 app.get('/available-dates/:id', (req, res) => {
   const { id } = req.params;
   dbConn.query(
-    "SELECT DatumPrikaza, vrijeme_prikaza from prikazivanje WHERE id_filma = ?", [id],
+    "SELECT * from prikazivanje WHERE id_filma = ?", [id],
     (error, results) => {
       if (error) throw error;
       res.send(results);
     }
   );
 });
+
+/*
+app.get('/prikazivanje/:id_prikaza', (req, res) => {
+  const { id_prikaza } = req.params;
+  dbConn.query(
+    "SELECT * from prikazivanje WHERE  id_prikaza = ?", [id_prikaza],
+    (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});*/
+
+app.get('/prikazivanje/:id_prikaza', (req, res) => {
+  const { id_prikaza } = req.params;
+  dbConn.query(
+    "SELECT p.*, f.Naslov FROM prikazivanje p JOIN Film f ON p.id_filma = f.ID_Film WHERE p.id_prikaza = ?",
+    [id_prikaza],
+    (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});
+
+
 
 
 

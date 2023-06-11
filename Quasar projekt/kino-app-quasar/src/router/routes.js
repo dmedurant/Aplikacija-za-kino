@@ -28,6 +28,14 @@ const routes = [
     ],
   },
   {
+    path: "/rezervacija",
+    component: () => import("layouts/BlankLayout.vue"),
+    children: [
+      {name: "rezervacija", path: ":id_filma/:id_prikaza", component: () => import("pages/RezervacijaPage.vue") },
+
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
   }

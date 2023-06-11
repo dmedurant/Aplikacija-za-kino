@@ -1,10 +1,17 @@
 <template>
   <div style="background-color: #229df9;">
     <div v-for="post in posts" :key="post.ID_Film" class="row q-pa-md">
-
       <div q-card>
         <p style="font-size: 60px; font-weight:700;">{{ post.Naslov }}</p>
-        <q-img :src="post.cover" width="300px" height="450px" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)"></q-img>
+        <q-img
+          :src="post.cover"
+          width="300px"
+          height="450px"
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+        ></q-img>
       </div>
       <div class="q-pa-md">
         <div class="q-pa-md items-start q-gutter-xs">
@@ -19,48 +26,41 @@
         </div>
 
         <div class="q-pa-md">
-          <q-btn-dropdown class="float-right" color="purple" label="Rezervacija">
-            <div class="row no-wrap q-pa-md">
-              <div class="column">
-                <div class="text-h6 q-mb-md">Rezervacija</div>
-              
-                <q-table
-                  :rows="availableDates"
-                  :columns="columns"
-                  row-key="date"
-                  :rows-per-page-options="[5, 10, 15]"
-                  :pagination="pagination"
-                  dense
-                  flat
-                  class="shadow-0"
-                >
-                  <template v-slot:top-left>
-                    <p>Dostupno</p>
-                  </template>
-                  <template v-slot:body="props">
-                    <q-tr :props="props">
-                      <q-td key="date" :props="props">{{ formatDate(props.row.DatumPrikaza) }}</q-td>
-                      <q-td key="vrijeme" :props="props">{{ formatTime(props.row.vrijeme_prikaza) }}</q-td>
-                      <q-td key="action" :props="props">
-                        <q-checkbox
-                          v-model="props.row.selected"
-                          @input="selectRow(props.row)"
-                          true-value="selected"
-                          false-value="not-selected"
-                        />
-                      </q-td>
-                    </q-tr>
-                  </template>
-                </q-table>
-              </div>
-              <q-separator vertical inset class="q-mx-lg" />
-              <div class="column items-center">
-                <q-btn name="rezervacija" label="Rezerviraj" @click="rezervacijaFilma" color="blue" class="q-ml-sm"/>
-              </div>
-            </div>
-          </q-btn-dropdown>
+          <div class="column">
+            <div class="text-h6 q-mb-md">Rezervacija</div>
+            <q-table
+              :rows="availableDates"
+              :columns="columns"
+              row-key="date"
+              :rows-per-page-options="[5, 10, 15]"
+              :pagination="pagination"
+              dense
+              flat
+              class="shadow-0"
+            >
+              <template v-slot:top-left>
+                <p>Dostupno</p>
+              </template>
+              <template v-slot:body="props">
+                <q-tr :props="props">
+                  <q-td key="date" :props="props">{{ formatDate(props.row.DatumPrikaza) }}</q-td>
+                  <q-td key="vrijeme" :props="props">{{ formatTime(props.row.vrijeme_prikaza) }}</q-td>
+                  <q-td key="action" :props="props">
+                    <q-btn
+                      label="Select"
+                      color="primary"
+                      @click="navigateToAnotherPage(props.row.id_prikaza)"
+                    />
+                  </q-td>
+                </q-tr>
+              </template>
+            </q-table>
+          </div>
+          <q-separator vertical inset class="q-mx-lg" />
+          <div class="column items-center">
+            <q-btn name="rezervacija" label="Odabir" @click="rezervacijaFilma" color="blue" class="q-ml-sm" />
+          </div>
         </div>
-        <q-separator />
       </div>
     </div>
     <q-card-section>
@@ -111,16 +111,8 @@ const columns = [
   { name: 'action', required: true, label: 'Action', align: 'center', field: 'action' }
 ];
 const pagination = { rowsPerPage: 5 };
-const selectAll = ref(false);
-const filter = ref('');
 
-const selectRow = (row) => {
-  // Handle row selection logic
-};
 
-const selectAllRows = (value) => {
-  // Handle select all rows logic
-};
 
 const rezervacijaFilma = () => {
   // Handle rezervacijaFilma logic
@@ -132,6 +124,17 @@ const formatDate = (date) => {
 
 const formatTime = (time) => {
   return moment(time, 'HH:mm:ss', true).format('HH:mm');
+};
+
+const navigateToAnotherPage = (rowID) => {
+  router.push({
+    path: '/rezervacija',
+    name: "rezervacija",
+    params: {
+      id_filma: trenutniID,
+      id_prikaza: rowID,
+    },
+  });
 };
 
 onMounted(() => {
