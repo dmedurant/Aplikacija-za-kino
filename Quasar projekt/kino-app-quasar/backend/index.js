@@ -139,9 +139,9 @@ app.get('/prikazivanje/:id_prikaza', (req, res) => {
 
 app.post('/unosRezervacije', function (request, response) {
   const data = request.body;
-  rezervacija = [[data.osoba, data.id_prikaza]]
+  rezervacija = [[data.osoba, data.id_prikaza, data.broj_karti]]
   
-  dbConn.query('INSERT INTO rezervacija  (korisnik, id_prikaza ) VALUES ? ',
+  dbConn.query('INSERT INTO rezervacija  (korisnik, id_prikaza, broj_karti ) VALUES ? ',
   [rezervacija], function (error, results, fields) {
   if (error) throw error;
   return response.send({ error: false, data: results, message:'Unesena rezervacija.' });
