@@ -1,6 +1,6 @@
 <template>
-  <div  class="absolute-full slikica">
-    <div v-for="post in posts" :key="post.ID_Film" class="row q-pa-md fixed-center pozadina">
+
+    <div v-for="post in posts" :key="post.ID_Film" class="row q-pa-md fixed-center pozadina scrollable">
       <div q-card style="padding-left: 10%;">
         <p style="font-size: 60px; font-weight:700;">{{ post.Naslov }}</p>
         <q-img
@@ -17,17 +17,19 @@
         <div class="q-pa-md items-start q-gutter-xs">
           <p style="font-size:20pt; font-weight:700;">Opis:</p>
           <div class="post-text">{{ post.Sadrzaj }}</div>
-          <q-separator color="white" />
+          <br>
+          <q-separator color="rgba(255,255,255,0.9)" />
           <br>
           <p style="font-size: 20pt; font-weight:700;">Datum objave:</p>
-          <h7>{{ formatDate(post.DatumObjave) }}</h7>
-          <q-separator color="white" />
+          <p  class="post-text">{{ formatDate(post.DatumObjave) }}</p>
+          <q-separator color="rgba(255,255,255,0.9)" />
+          <br>
           <div class="" style="max-width: 400px"></div>
         </div>
 
         <div class="q-pa-md">
           <div class="column">
-            <div class="text-h6 q-mb-md"><p style="font-size: 20pt; font-weight:700;">Dostupna prikazivanja</p></div>
+            <div class="text-h6 q-mb-md"><p style="font-size: 20pt; font-weight:700;">Dostupna prikazivanja:</p></div>
             <q-table
             id="filmovitablica"
               :rows="availableDates"
@@ -53,14 +55,14 @@
               </template>
             </q-table>
           </div>
+          <q-card-section>
+            <q-btn class="button" @click="$router.go(-1) " label="Nazad" />
+          </q-card-section>
           <q-separator vertical inset class="q-mx-lg" />
         </div>
       </div>
     </div>
-    <q-card-section>
-      <q-btn class="button" @click="$router.push('/') " label="Natrag na početnu" />
-    </q-card-section>
-  </div>
+   
 </template>
 
 <script setup>
@@ -133,15 +135,11 @@ onMounted(() => {
 
 
 <style>
-.slikica{
-  background-image: url(https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=1380&t=st=1686499615~exp=1686500215~hmac=fb07370caa8ee4df1d990942b3c5340b177150ae87af62f2bf885389144f2200);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+
 
 #filmovitablica{
-  background-color: #ffffff93;
-  padding: 10px;
+  background-color: #ffffff37;
+  padding: 25px;
 }
 
 .q-table th{
@@ -155,21 +153,30 @@ font-size: 15pt;
   padding-top :2%; 
   padding-bottom:4%; 
   background-color: 
-  rgba(26, 26, 26, 0.462); width:80%; 
+  rgba(26, 26, 26, 0.462);
+   width:80%;
+   height: 90%; 
   border-radius: 15px;
+  overflow: hidden;
 }
 
+.scrollable {
+ 
+  overflow-y: auto;
+}
 .post-text {
   max-width: 620px;
   word-wrap: break-word;
+  font-size: 15pt;
+  color: rgba(0, 0, 0, 0.725);
 }
 
 .button{
-  background-color: black;
+  background-color: #7051d0;
   color:white;
 }
 .button:hover{
-  background-color:white;
+  background-color:#423077;
   color:black;
 }
 

@@ -12,8 +12,8 @@
     <div class="q-pa-md row items-start q-gutter-md">
 
 
-      <template v-if="filteredPosts.length > 0">
-        <q-card
+      <template  v-if="filteredPosts.length > 0">
+        <q-card style="margin-left:3%;"
           v-for="post in filteredPosts"
           :key="post.id"
           class="my-card"
@@ -24,7 +24,7 @@
             <q-btn
               fab
               color="primary"
-              icon=""
+              icon="more"
               class="absolute"
               style="top: 0; right: 12px; transform: translateY(-50%)"
               :to="'/detalji/' + post.ID_Film"
@@ -47,7 +47,7 @@
           </q-card-section>
 
           <q-card-section class="q-pt-none">
-            <div class="text-subtitle1">{{ post.DatumObjave }}</div>
+            <div class="text-subtitle1">{{ formatDate(post.DatumObjave) }}</div>
             <div class="text-caption text-grey">
               {{ post.Sadrzaj }}
             </div>
@@ -58,7 +58,7 @@
       </template>
 
       <template v-else>
-        <div class="text-caption text-grey">No titles found with the searched word.</div>
+        <div class="text-caption text-grey">Nije moguće pronaći traženi naslov</div>
       </template>
     </div>
   </div>
@@ -66,6 +66,7 @@
 </template>
 
 <script setup>
+  import moment from 'moment';
 import { ref, computed, onMounted } from "vue";
 import { api } from 'boot/axios';
 import { useRoute, useRouter } from 'vue-router';
@@ -84,7 +85,10 @@ const getPosts = async () => {
     console.log(error);
   }
 };
-
+const formatDate = (date) => {
+    return moment(date).format('DD-MM-YYYY');
+  };
+  
 const deleteById = async (id) => {
   try {
     const response = await api.delete(`http://localhost:3000/obrisi_film/${id}`);

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated style="background-color: rgba(0,0,0, 0.6)">
       <q-toolbar>
         <q-btn
           flat
@@ -22,7 +22,6 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
     >
       <q-list>
         <q-item-label
@@ -50,6 +49,12 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
 
+  {
+    title: 'Početna',
+    caption: 'Prikaz svih filmova',
+    icon: '',
+    link: '#'
+  },
   {
     title: 'Login',
     caption: 'Ulogiravanje u sustav',

@@ -17,6 +17,9 @@
         </q-input>
         <q-input ref="trajanjeRef" v-model="inputTrajanje" label="Trajanje" placeholder="Trajanje ">
         </q-input>
+        
+        <q-input ref="coverRef" v-model="inputCover" label="Cover slika" placeholder="url ">
+        </q-input>
   
           <div
             class="q-pa-sm"
@@ -68,7 +71,8 @@
         inputNaslov: '',
         inputSadrzaj: '',
         inputDatumObjave: '',
-        inputTrajanje: ''
+        inputTrajanje: '',
+        inputCover: ''
   
       }
     },
@@ -83,6 +87,8 @@
         this.inputSadrzaj = ''
         this.inputDatumObjave = ''
         this.inputTrajanje = ''
+        this.inputCover = ''
+        this.$refs.coverRef.resetValidation()
         this.$refs.naslovRef.resetValidation()
         this.$refs.SadrzajRef.resetValidation()
         this.$refs.DatumObjaveRef.resetValidation()
@@ -90,10 +96,11 @@
       },
       async submitForm () {
         const sampleData = {
-            naslov: this.inputNaslov,
+          naslov: this.inputNaslov,
           sadrzaj: this.inputSadrzaj,
           datumObjave: this.inputDatumObjave,
-          trajanje: this.inputTrajanje
+          trajanje: this.inputTrajanje,
+          cover: this.inputCover
         }
         try {
           const response = await axios.post(
