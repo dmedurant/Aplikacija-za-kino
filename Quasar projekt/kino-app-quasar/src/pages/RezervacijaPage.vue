@@ -1,15 +1,24 @@
 <template>
     <div class="bg-image">
-    <q-page padding class="flex flex-center">
+    <q-page padding class="flex flex-center" >
       <q-card style="width: 350px;">
         <q-card-section>
-          <div v-for="post in posts" :key="post.id_prikaza" class="q-gutter-md full-with" style="max-width: 500px">
+          <div v-for="post in posts" :key="post.id_prikaza" class="q-gutter-md full-with" >
           <div class="full-with">
         <div class="q-gutter-md" style="max-width: 350px">
         <p  class="text-h5 text-weight-light text-center" style="color:#2196F3">Rezervacija karti</p>
         <p>Film: {{ post.Naslov }}</p>
         <p>Datum Prikaza: {{ formatDate(post.DatumPrikaza) }}</p>
         <p>Vrijeme Prikaza: {{ formatTime(post.vrijeme_prikaza) }}</p>
+        <q-img
+        :src="post.cover"
+        width="200px"
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        :fit="fill"
+      ></q-img>
         <q-input v-model="inputOsoba" ref="inputOsobaRef" label="Ime rezervacije" placeholder="Vaše ime i prezime">
         </q-input>
         <q-input v-model="inputKarte" ref="inputKarteRef" label="Broj karti" placeholder="1">
