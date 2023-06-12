@@ -2,7 +2,7 @@
 
     <div v-for="post in posts" :key="post.ID_Film" class="row q-pa-md fixed-center pozadina scrollable">
       <div q-card style="padding-left: 10%;">
-        <p style="font-size: 60px; font-weight:700;">{{ post.Naslov }}</p>
+        <p style="font-size: 60px; font-weight:700;text-shadow: 0px 0px 10px #1d2333;">{{ post.Naslov }}</p>
         <q-img
           :src="post.cover"
           width="400px"
@@ -17,7 +17,10 @@
         <div class="q-pa-md items-start q-gutter-xs">
           <p style="font-size:20pt; font-weight:700;">Opis:</p>
           <div class="post-text">{{ post.Sadrzaj }}</div>
+          <q-separator color="rgba(255,255,255,0.9)" />
           <br>
+          <p style="font-size:20pt; font-weight:700;">Trajanje:</p>
+          <div class="post-text">{{ post.VrijemeTrajanja }} min.</div>
           <q-separator color="rgba(255,255,255,0.9)" />
           <br>
           <p style="font-size: 20pt; font-weight:700;">Datum objave:</p>
