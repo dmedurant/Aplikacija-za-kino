@@ -66,27 +66,27 @@ const linksList = [
     caption: 'Prikaz redatelja',
     icon: '',
     link: '#/red'
-  },
+  },/*
   {
     title: 'Redatelji unos',
     caption: 'Unos redatelja',
     icon: '',
     link: '#/redUnos'
-  },
-
+  },*/
+ /*
   {
     title: 'Film unos',
     caption: 'Unos filmova',
     icon: '',
     link: '#/filmUnos'
-  },
+  },*/
   {
     title: 'Film prikaz',
     caption: 'Prikaz filmova',
     icon: '',
     link: '#/filmPrikaz'
   },
-  {
+  /*{
     title: 'Korisnici prikaz',
     caption: 'Prikaz ',
     icon: '',
@@ -97,6 +97,12 @@ const linksList = [
     caption: 'unos ',
     icon: '',
     link: '#/korUnos'
+  },*/
+  {
+    title: 'Rezervacije',
+    caption: 'Rezervacije ',
+    icon: '',
+    link: '#/rezervacije'
   }
 ]
 
