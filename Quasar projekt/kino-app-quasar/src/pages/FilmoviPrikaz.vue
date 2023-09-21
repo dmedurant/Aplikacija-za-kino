@@ -22,6 +22,18 @@
                 <q-input type="text" v-model="scope.value" dense autofocus />
               </q-popup-edit>
             </q-td>
+              <q-td key="Ime" :props="Ime">
+                {{ props.row.Ime }}
+                <q-popup-edit v-model="props.row.Ime" title="Update Ime" buttons v-slot="scope">
+                  <q-input type="text" v-model="scope.value" dense autofocus />
+                </q-popup-edit>
+                </q-td>
+                <q-td key="Prezime" :props="Prezime">
+                {{ props.row.Prezime }}
+                <q-popup-edit v-model="props.row.Prezime" title="Update Prezime" buttons v-slot="scope">
+                  <q-input type="text" v-model="scope.value" dense autofocus />
+                </q-popup-edit>
+                </q-td>
             <q-td key="Sadrzaj" :props="Sadrzaj">
               {{ props.row.Sadrzaj }}
               <q-popup-edit v-model="props.row.Sadrzaj" title="Update Sadrzaj" buttons v-slot="scope">
@@ -39,7 +51,7 @@
                 <q-popup-edit v-model="props.row.VrijemeTrajanja" title="Update Trajanje" buttons v-slot="scope">
                   <q-input type="text" v-model="scope.value" dense autofocus />
                 </q-popup-edit>
-                </q-td>
+                </q-td>                
           </q-tr>
         </template>
       </q-table>
@@ -54,15 +66,22 @@
   <script setup>
   import { ref, onMounted } from "vue";
   import {api} from 'boot/axios';
-  
-  // treba dodati skripte za update i brisanje
-  
+    // treba dodati skripte za update i brisanje
+
+  /*            <q-td key="ID_Redatelj" :props="ID_Redatelj">
+                {{ props.row.ID_Redatelj }}
+                <q-popup-edit v-model="props.row.ID_Redatelj" title="Update Redatelj" buttons v-slot="scope">
+                  <q-input type="text" v-model="scope.value" dense autofocus />
+                </q-popup-edit>
+                </q-td>*/
   const posts = ref([])
   const searchTerm = ref('');
 
   const columns = [
-    { name: 'ID_Film', align: 'left', label: 'ID', field: 'ID_Film', sortable: true },
-    { name: 'Naslov', align: 'left', label: 'Naslov', field: 'Naslov', sortable: true },
+    { name: 'ID_Film', align: 'left', label: 'ID', field: 'ID_Film', sortable: true },    
+    { name: 'Naslov', align: 'left', label: 'Naslov Filma', field: 'Naslov', sortable: true },
+    { name: 'Ime', align: 'left', label: 'Ime Redatelja', field: 'Ime', sortable: true },
+    { name: 'Prezime', align: 'left', label: 'Prezime Redatelja', field: 'Prezime', sortable: true },
     { name: 'Sadrzaj', align: 'left', label: 'Sadržaj', field: 'Sadrzaj', sortable: true },
     { name: 'DatumObjave', align: 'left', label: 'Datum Objave', field: 'DatumObjave', sortable: false },
     { name: 'Trajanje', align: 'left', label: 'Trajanje', field: 'VrijemeTrajanja', sortable: true }

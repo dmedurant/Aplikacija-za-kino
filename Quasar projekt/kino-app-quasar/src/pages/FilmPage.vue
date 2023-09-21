@@ -1,5 +1,4 @@
 <template>
-
     <div v-for="post in posts" :key="post.ID_Film" class="row q-pa-md fixed-center pozadina scrollable">
       <div q-card style="padding-left: 10%;">
         <p style="font-size: 60px; font-weight:700;text-shadow: 0px 0px 10px #1d2333;">{{ post.Naslov }}</p>
@@ -25,6 +24,12 @@
           <br>
           <p style="font-size: 20pt; font-weight:700;">Datum objave:</p>
           <p  class="post-text">{{ formatDate(post.DatumObjave) }}</p>
+          <q-separator color="rgba(255,255,255,0.9)" />
+          <br>
+
+          
+          <p style="font-size: 20pt; font-weight:700;">Redatelj:</p>
+          <p  class="post-text2">{{ post.Ime }}{{" "}}{{ post.Prezime }}</p>
           <q-separator color="rgba(255,255,255,0.9)" />
           <br>
           <div class="" style="max-width: 400px"></div>
@@ -105,8 +110,6 @@ const columns = [
 ];
 const pagination = { rowsPerPage: 5 };
 
-
-
 const rezervacijaFilma = () => {
   // Handle rezervacijaFilma logic
 };
@@ -172,6 +175,14 @@ font-size: 15pt;
   word-wrap: break-word;
   font-size: 15pt;
   color: rgba(0, 0, 0, 0.725);
+}
+
+
+.post-text2 {
+  max-width: 620px;
+  word-wrap: break-word;
+  font-size: 20pt;
+  color: white;
 }
 
 .button{

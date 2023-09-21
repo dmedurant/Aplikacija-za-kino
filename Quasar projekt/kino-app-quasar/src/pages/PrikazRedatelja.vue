@@ -58,8 +58,6 @@
 import { ref, onMounted } from "vue";
 import {api} from 'boot/axios';
 
-// treba dodati skripte za update i brisanje
-
 const posts = ref([])
 
 const columns = [

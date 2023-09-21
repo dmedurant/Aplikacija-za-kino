@@ -5,7 +5,7 @@
     v-model="searchTerm"
     outlined
     dense
-    placeholder="Pretražite naslove..."
+    placeholder="Pretražite naslove, sadržaj, direktora..."
     @keyup.enter="search"
     class="my-search-bar"
   />
@@ -43,6 +43,9 @@
 
             <div class="row no-wrap items-center">
               <div class="col text-h6 ellipsis">{{ post.Naslov }}</div>
+            <div class="row no-wrap items-center">
+              <div class="text-caption text-grey">{{ post.Ime }}{{" "}}{{ post.Prezime }}</div>
+            </div>
             </div>
           </q-card-section>
 
@@ -101,7 +104,12 @@ const deleteById = async (id) => {
 };
 
 const search = () => {
-  filteredPosts.value = posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()));
+  filteredPosts.value = posts.value.filter(
+      (post) =>
+        post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Sadrzaj.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Ime.toLowerCase().includes(searchTerm.value.toLowerCase())|| post.Prezime.toLowerCase().includes(searchTerm.value.toLowerCase()));
+        //post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Sadrzaj.toLowerCase().includes(searchTerm.value.toLowerCase()));
+  
+        //  filteredPosts.value = posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()));
 };
 
 onMounted(() => {
@@ -113,7 +121,8 @@ const goToAtrakcijeDetalji = (id) => {
 };
 
 const filteredPosts = computed(() => {
-  return posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()));
+  return posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Sadrzaj.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Ime.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Prezime.toLowerCase().includes(searchTerm.value.toLowerCase()));
+  //return posts.value.filter(post => post.Naslov.toLowerCase().includes(searchTerm.value.toLowerCase()) || post.Sadrzaj.toLowerCase().includes(searchTerm.value.toLowerCase()));
 });
 
 </script>
