@@ -23,15 +23,12 @@ export default route(function (/* { store, ssrContext } */) {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if session token exists in local storage
     const sessionToken = localStorage.getItem('sessionToken')
-    if (!sessionToken) {
-      // Redirect to login page if session token is missing
+    if (!sessionToken) {      // Redirect to login page if session token is missing
       next('/login')
-    } else {
-      // User has an active session, allow access to the protected route
+    } else {      // User has an active session, allow access to the protected route
       next()
     }
-  } else {
-    // No authentication required, proceed to the route
+  } else {    // No authentication required, proceed to the route
     next()
   }
   })
