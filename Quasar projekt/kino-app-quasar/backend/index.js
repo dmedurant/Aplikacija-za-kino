@@ -26,9 +26,7 @@ dbConn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
   });
-
-
-  // Ovo riješava problem: 
+// Ovo riješava problem: 
 // Origin <origin> is not allowed by Access-Control-Allow-Origin
 // from origin 'http://localhost:3000' has been blocked by CORS policy
 app.use(function (req, res, next) {
@@ -37,21 +35,17 @@ app.use(function (req, res, next) {
   next();
 });
 // kraj fix-a
-
-
   // unos redatelja
   app.post('/unosRedatelja', function (request, response) {
     const data = request.body;
     redatelj = [[data.ime, data.prezime, data.biografija]]
-    
+
     dbConn.query('INSERT INTO Redatelj  (Ime, Prezime, Biografija) VALUES ? ',
     [redatelj], function (error, results, fields) {
     if (error) throw error;
     return response.send({ error: false, data: results, message:'Unesen redatelj.' });
     });
   });
-
-  
   // unos filma
   app.post('/unosFilm', function (request, response) {
     const data = request.body;
@@ -63,7 +57,6 @@ app.use(function (req, res, next) {
     return response.send({ error: false, data: results, message:'Unesen film.' });
     });
   });
-  
 // prikaz:
   app.get('/redatelji', (req,res)=>{
     dbConn.query("Select * from Redatelj", (err,result)=>{
@@ -74,9 +67,41 @@ app.use(function (req, res, next) {
         }
     });
 });
+// signup
+app.post('/SignUp', function (request, response) {
+  const data = request.body;
+  Korisnik = [[data.KorisnickoIme, data.broj]]
+  
+  dbConn.query('INSERT INTO Korisnik  (KorisnickoIme, broj) VALUES ? ',
+  [film], function (error, results, fields) {
+  if (error) throw error;
+  return response.send({ error: false, data: results, message:'Unesen korisnik.' });
+  });
+});
 
+////////////////// za FilmoviPrikaz stranicu (da se vidi redatelj
 app.get('/filmovi', (req,res)=>{
-  dbConn.query("SELECT * from Film", (err,result)=>{
+  dbConn.query("SELECT * FROM `Film` LEFT JOIN Redatelj on Film.ID_Redatelj = Redatelj.ID_Redatelj", (err,result)=>{
+      if(err){
+          res.send('error');
+      }else{
+          res.send(result);
+      }
+  });
+});
+////////////////// za FilmPage stranicu (da se vidi redatelj)
+app.get('/film/:id', (req, res) => {
+  const { id } = req.params;
+  dbConn.query("SELECT * FROM `Film` LEFT JOIN Redatelj on Film.ID_Redatelj = Redatelj.ID_Redatelj WHERE ID_Film = ?", [id], (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    }
+  );
+});
+
+// prikaz rezervacija tabla 1 <-> table 2, tabla 2 <-> tabla 3
+app.get('/rezervacije', (req,res)=>{
+  dbConn.query("SELECT * FROM rezervacija JOIN prikazivanje on rezervacija.id_prikaza=prikazivanje.id_prikaza JOIN Film on prikazivanje.id_filma=Film.ID_Film;", (err,result)=>{
       if(err){
           res.send('error');
       }else{
@@ -85,16 +110,6 @@ app.get('/filmovi', (req,res)=>{
   });
 });
 
-app.get('/film/:id', (req, res) => {
-  const { id } = req.params;
-  dbConn.query(
-    "SELECT * from Film WHERE ID_Film = ?", [id],
-    (error, results) => {
-      if (error) throw error;
-      res.send(results);
-    }
-  );
-});
 
 
 app.get('/available-dates/:id', (req, res) => {
@@ -132,11 +147,6 @@ app.get('/prikazivanje/:id_prikaza', (req, res) => {
   );
 });
 
-
-
-
-
-
 app.post('/unosRezervacije', function (request, response) {
   const data = request.body;
   rezervacija = [[data.osoba, data.id_prikaza, data.broj_karti]]
@@ -173,7 +183,6 @@ app.delete('/obrisi_film/:id', function (request, response){
     });
   });
 
-
 // unos korisnika
 app.post('/unosKorisnika', function (request, response) {
     const data = request.body;
@@ -186,7 +195,7 @@ app.post('/unosKorisnika', function (request, response) {
     });
   });
 
-
+/*
 app.post('/login', function (request, response) {
   const data = request.body;
   user = [[data.username]]
@@ -197,7 +206,7 @@ app.post('/login', function (request, response) {
   return response.send({ error: false, data: results, message:'Korisnik postoji!.' });
   });
 });
-
+*/
 
 app.get("get-film/:id", (req, res) => {
   const { id } = req.params;
@@ -211,7 +220,6 @@ app.get("get-film/:id", (req, res) => {
     }
   );
 });
-
 
 /*
 //uzimanje podataka o korisnicima
@@ -232,6 +240,26 @@ app.get("/korisnici", function (request, response) {
 app.listen(3000, function () {
 console.log('Node app is running on port 3000');
 });
+
+//////////////////////// login
+app.post('/login', (req, res) => {
+  const { ID_Korisnik, broj } = req.body;
+
+  db.query('SELECT * FROM Korisnik WHERE ID_Korisnik = ? AND broj = ?', [ID_Korisnik, broj])
+    .then((results) => {
+      if (results.length > 0) {
+        res.json({ success: true, message: 'Login uspio' });
+      } else {
+        res.status(401).json({ success: false, message: 'Login nije uspio' });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Login ne radi.' });
+    });
+});
+
+
 
 
 
